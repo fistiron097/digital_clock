@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-color: #f0f0f0;
+        }
+        .clock-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .time-format {
+            margin: 15px 0;
+            font-size: 24px;
+        }
+        .format-title {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <h1>Digital Clock</h1>
+        
+        <div class="time-format">
+            <div class="format-title">24-hour Format</div>
+            <div id="time24">--:--:--</div>
+        </div>
+        
+        <div class="time-format">
+            <div class="format-title">12-hour Format</div>
+            <div id="time12">--:--:-- --</div>
+        </div>
+    </div>
+
+    <script>
+        const updateClock = () => {
+            const now = new Date();
+
+            // 24-hour format
+            const hours24 = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            // 12-hour format
+            const hours12 = ((now.getHours() + 11) % 12 + 1).toString().padStart(2, '0');
+            const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+            
+            // Update the display
+            document.getElementById('time24').textContent = `${hours24}:${minutes}:${seconds}`;
+            document.getElementById('time12').textContent = `${hours12}:${minutes}:${seconds} ${ampm}`;
+
+            setTimeout(updateClock, 1000);
+        };
+
+        // Start the clock when the page loads
+        window.onload = updateClock;
+    </script>
+</body>
+</html>
